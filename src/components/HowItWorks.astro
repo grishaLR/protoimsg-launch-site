@@ -1,0 +1,38 @@
+---
+const steps = [
+  {
+    number: '1',
+    title: 'Sign in',
+    description: 'Log in with your AT Protocol handle from any PDS. Bluesky, Blacksky, North Sky, or your own. No new account, no phone number, no email.',
+  },
+  {
+    number: '2',
+    title: 'Find your people',
+    description: 'Join chat rooms by interest, meet people, and add the ones you vibe with to your community list. Follow them on any ATProto client from there.',
+  },
+  {
+    number: '3',
+    title: 'Stay connected',
+    description: 'Chat in rooms, hop on P2P video calls, send instant messages. Set your status and see who\'s online. Reach offline friends through Germ.',
+  },
+];
+---
+
+<section class="section" id="how-it-works">
+  <h2 class="section-title">How it works</h2>
+  <p class="section-subtitle">Three steps to your new community hub.</p>
+
+  <div class="steps">
+    {steps.map((s) => (
+      <div class="step">
+        <div class="step-number">{s.number}</div>
+        <h3>{s.title}</h3>
+        <p>{s.description}</p>
+      </div>
+    ))}
+  </div>
+
+  <p class="steps-footer">
+    Your identity, contacts, and public chat history are yours. Portable across any app that implements the Lexicon.
+  </p>
+</section>

@@ -1,0 +1,35 @@
+---
+const items = [
+  {
+    title: 'Marketplace',
+    description: 'Buy, sell, and trade within your communities.',
+  },
+  {
+    title: 'Mobile & desktop',
+    description: 'Native apps via Tauri (desktop) and React Native (mobile). Both headed to the app stores.',
+  },
+  {
+    title: 'Group video',
+    description: 'Multi-party video calls from chat rooms.',
+  },
+  {
+    title: 'Private rooms',
+    description: 'End-to-end encrypted group chats via MLS.',
+  },
+];
+---
+
+<section class="section" id="coming-soon">
+  <h2 class="section-title">Coming soon</h2>
+  <p class="section-subtitle">What we're building next.</p>
+
+  <div class="coming-grid">
+    {items.map((item) => (
+      <div class="coming-card">
+        <span class="coming-badge">Soon</span>
+        <h3>{item.title}</h3>
+        <p>{item.description}</p>
+      </div>
+    ))}
+  </div>
+</section>

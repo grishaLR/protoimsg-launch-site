@@ -1,0 +1,39 @@
+<section class="section" id="trust">
+  <h2 class="section-title">Trust model</h2>
+  <p class="section-subtitle">We're upfront about how your data flows.</p>
+
+  <div class="trust-callout">
+    <h3>How privacy works in protoimsg</h3>
+    <ul class="trust-list">
+      <li>
+        <strong>Public data:</strong> community lists, public chat rooms, and messages are ATProto records
+        in your repo, visible on the network. You own them.
+      </li>
+      <li>
+        <strong>Trust-aware routing:</strong> your inner circle gets pure P2P connections (STUN). Everyone else
+        is routed through our TURN relay to keep your IP address hidden. No third-party STUN servers. All
+        infrastructure is self-hosted.
+      </li>
+      <li>
+        <strong>IMs are peer-to-peer:</strong> instant messages travel device-to-device via WebRTC data channels.
+        Nothing is stored on the server.
+      </li>
+      <li>
+        <strong>DMs via Germ:</strong> persistent private messages use <a href="https://germnetwork.com">Germ</a> for
+        end-to-end encryption with MLS. We never see your DMs.
+      </li>
+      <li>
+        <strong>Video and voice:</strong> encrypted with DTLS-SRTP. Even when relayed, the TURN server
+        forwards encrypted packets without decrypting them.
+      </li>
+      <li>
+        <strong>Community list tiers:</strong> organize contacts into Everyone, Community, and Inner Circle.
+        Each tier controls who sees your presence and whether connections are P2P or relayed.
+      </li>
+      <li>
+        <strong>No analytics, no cookies, no tracking:</strong> this site and the app collect zero
+        behavioral data.
+      </li>
+    </ul>
+  </div>
+</section>

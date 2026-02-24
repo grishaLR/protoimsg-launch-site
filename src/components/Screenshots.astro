@@ -1,0 +1,33 @@
+---
+const items = [
+  { label: 'Chat room', type: 'video', src: '/demo-chatroom.mp4' },
+  { label: 'Buddy list', type: 'video', src: '/demo-buddylist.mp4' },
+  { label: 'Instant messages', type: 'video', src: '/demo-im.mp4' },
+  { label: 'Auto-translation', type: 'video', src: '/demo-translate.mp4' },
+] as const;
+---
+
+<section class="section" id="screenshots">
+  <h2 class="section-title">See it in action</h2>
+  <p class="section-subtitle"></p>
+
+  <div class="screenshots-grid">
+    {items.map((item) =>
+      item.type === 'video' ? (
+        <div class="screenshot-slot">
+          <video autoplay muted loop playsinline>
+            <source src={item.src} type="video/mp4" />
+          </video>
+          <span class="screenshot-label">{item.label}</span>
+        </div>
+      ) : item.type === 'image' ? (
+        <div class="screenshot-slot">
+          <img src={item.src} alt={item.label} loading="lazy" />
+          <span class="screenshot-label">{item.label}</span>
+        </div>
+      ) : (
+        <div class="screenshot-placeholder">{item.label}</div>
+      )
+    )}
+  </div>
+</section>
