@@ -1,38 +1,19 @@
----
-const steps = [
-  {
-    number: '1',
-    title: 'Sign in',
-    description: 'Log in with your AT Protocol handle from any PDS. Bluesky, Blacksky, North Sky, or your own. No new account, no phone number, no email.',
-  },
-  {
-    number: '2',
-    title: 'Find your people',
-    description: 'Join chat rooms by interest, meet people, and add the ones you vibe with to your community list. Follow them on any ATProto client from there.',
-  },
-  {
-    number: '3',
-    title: 'Stay connected',
-    description: 'Chat in rooms, hop on P2P video calls, send instant messages. Set your status and see who\'s online. For offline friends, protoimsg links out to Germ for encrypted DMs.',
-  },
-];
----
+<section class="how-it-works" id="how-it-works" aria-labelledby="how-it-works-title">
+  <h2 id="how-it-works-title">How it works</h2>
 
-<section class="section" id="how-it-works">
-  <h2 class="section-title">How it works</h2>
-  <p class="section-subtitle">Three steps to your new community hub.</p>
+  <ol class="how-steps">
+    <li>
+      <span class="step-label">Sign in</span> with your AT Protocol handle. Bluesky, Blacksky, North Sky, or your own PDS. No new account, no phone number.
+    </li>
+    <li>
+      <span class="step-label">Build your buddy list</span> and organize people into trust tiers. See who's online, set your status.
+    </li>
+    <li>
+      <span class="step-label">Call anyone</span> with one click. Free, encrypted, cross-platform. Send IMs when you can't hop on video. For offline DMs, we link out to Germ.
+    </li>
+  </ol>
 
-  <div class="steps">
-    {steps.map((s) => (
-      <div class="step">
-        <div class="step-number">{s.number}</div>
-        <h3>{s.title}</h3>
-        <p>{s.description}</p>
-      </div>
-    ))}
-  </div>
-
-  <p class="steps-footer">
+  <p class="how-footer">
     Your identity, contacts, and public chat history are yours. Portable across any app that implements the Lexicon.
   </p>
 </section>

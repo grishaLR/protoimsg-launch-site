@@ -5,8 +5,8 @@ interface Props {
 }
 
 const {
-  title = 'protoimsg | AIM-inspired group chat on the AT Protocol',
-  description = 'Community chat rooms, peer-to-peer video calls, encrypted DMs, and buddy lists built on the AT Protocol. Works with Blacksky, Bluesky, or any atproto account.',
+  title = 'proto IM | AIM-inspired video chat for the open web',
+  description = 'Free video calls and buddy lists built on the AT Protocol. Like FaceTime, but it works on every device. Works with Blacksky, Bluesky, or any atproto account.',
 } = Astro.props;
 
 import '../styles/global.css';
@@ -24,18 +24,60 @@ import '../styles/global.css';
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content="https://protoimsg.app" />
-    <meta property="og:site_name" content="protoimsg" />
+    <meta property="og:site_name" content="proto IM" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>{title}</title>
 
+    <script is:inline>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        if (saved) {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      })();
+    </script>
   </head>
   <body>
-    <slot />
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <div class="topbar">
+      <button class="theme-toggle" aria-label="Toggle light and dark theme" id="theme-toggle">
+        <span class="theme-icon-dark" aria-hidden="true">&#9790;</span>
+        <span class="theme-icon-light" aria-hidden="true">&#9728;</span>
+      </button>
+    </div>
+    <div class="page">
+      <slot />
+    </div>
+
+    <script is:inline>
+      (function() {
+        var btn = document.getElementById('theme-toggle');
+        function getTheme() {
+          return document.documentElement.getAttribute('data-theme') ||
+            (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        }
+        function updateIcon() {
+          var t = getTheme();
+          btn.querySelector('.theme-icon-dark').style.display = t === 'dark' ? 'inline' : 'none';
+          btn.querySelector('.theme-icon-light').style.display = t === 'light' ? 'inline' : 'none';
+        }
+        updateIcon();
+        btn.addEventListener('click', function() {
+          var next = getTheme() === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          updateIcon();
+        });
+      })();
+    </script>
   </body>
 </html>

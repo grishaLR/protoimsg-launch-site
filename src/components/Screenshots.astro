@@ -1,33 +1,88 @@
 ---
 const items = [
-  { label: 'Chat room', type: 'video', src: '/demo-chatroom.mp4' },
-  { label: 'Buddy list', type: 'video', src: '/demo-buddylist.mp4' },
-  { label: 'Instant messages', type: 'video', src: '/demo-im.mp4' },
-  { label: 'Auto-translation', type: 'video', src: '/demo-translate.mp4' },
+  { label: 'Buddy list', src: '/demo-buddylist.mp4', description: 'Demo of the buddy list showing online contacts and trust tiers' },
+  { label: 'Video call', src: '/demo-chatroom.mp4', description: 'Demo of a live video call between two users' },
+  { label: 'Instant messages', src: '/demo-im.mp4', description: 'Demo of peer-to-peer instant messaging' },
+  { label: 'Auto-translation', src: '/demo-translate.mp4', description: 'Demo of real-time auto-translation in a chat room' },
 ] as const;
 ---
 
-<section class="section" id="screenshots">
-  <h2 class="section-title">See it in action</h2>
-  <p class="section-subtitle"></p>
+<section class="section" id="screenshots" aria-labelledby="screenshots-title">
+  <h2 class="section-title" id="screenshots-title">See it in action</h2>
 
   <div class="screenshots-grid">
-    {items.map((item) =>
-      item.type === 'video' ? (
-        <div class="screenshot-slot">
-          <video autoplay muted loop playsinline>
-            <source src={item.src} type="video/mp4" />
-          </video>
-          <span class="screenshot-label">{item.label}</span>
-        </div>
-      ) : item.type === 'image' ? (
-        <div class="screenshot-slot">
-          <img src={item.src} alt={item.label} loading="lazy" />
-          <span class="screenshot-label">{item.label}</span>
-        </div>
-      ) : (
-        <div class="screenshot-placeholder">{item.label}</div>
-      )
-    )}
+    {items.map((item) => (
+      <div class="screenshot-slot">
+        <video
+          muted
+          loop
+          playsinline
+          preload="none"
+          aria-label={item.description}
+          data-lazy-video={item.src}
+        >
+          <source data-src={item.src} type="video/mp4" />
+        </video>
+        <button
+          class="video-pause-btn"
+          aria-label={`Pause ${item.label} video`}
+          data-playing="false"
+        >
+          <span aria-hidden="true">&#9654;</span>
+        </button>
+        <span class="screenshot-label">{item.label}</span>
+      </div>
+    ))}
   </div>
 </section>
+
+<script>
+  // Lazy load videos with Intersection Observer
+  const videos = document.querySelectorAll<HTMLVideoElement>('video[data-lazy-video]');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const video = entry.target as HTMLVideoElement;
+          const source = video.querySelector('source[data-src]') as HTMLSourceElement;
+          if (source && source.dataset.src) {
+            source.src = source.dataset.src;
+            video.load();
+            video.play().catch(() => {});
+            const btn = video.parentElement?.querySelector('.video-pause-btn') as HTMLButtonElement;
+            if (btn) {
+              btn.dataset.playing = 'true';
+              btn.querySelector('span')!.innerHTML = '&#9646;&#9646;';
+            }
+          }
+          observer.unobserve(video);
+        }
+      });
+    }, { rootMargin: '200px' });
+
+    videos.forEach((v) => observer.observe(v));
+  }
+
+  // Pause/play toggle
+  document.querySelectorAll('.video-pause-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const video = btn.parentElement?.querySelector('video') as HTMLVideoElement;
+      if (!video) return;
+      const button = btn as HTMLButtonElement;
+      const span = button.querySelector('span')!;
+      if (video.paused) {
+        video.play().catch(() => {});
+        button.dataset.playing = 'true';
+        span.innerHTML = '&#9646;&#9646;';
+        button.setAttribute('aria-label', button.getAttribute('aria-label')!.replace('Play', 'Pause'));
+      } else {
+        video.pause();
+        button.dataset.playing = 'false';
+        span.innerHTML = '&#9654;';
+        button.setAttribute('aria-label', button.getAttribute('aria-label')!.replace('Pause', 'Play'));
+      }
+    });
+  });
+</script>

@@ -1,35 +1,18 @@
----
-const items = [
-  {
-    title: 'Marketplace',
-    description: 'Buy, sell, and trade within your communities.',
-  },
-  {
-    title: 'Mobile & desktop',
-    description: 'Native apps via Tauri (desktop) and React Native (mobile). Both headed to the app stores.',
-  },
-  {
-    title: 'Group video',
-    description: 'Multi-party video calls from chat rooms.',
-  },
-  {
-    title: 'Private rooms',
-    description: 'End-to-end encrypted group chats via MLS.',
-  },
-];
----
+<section class="coming-soon" id="coming-soon" aria-labelledby="coming-soon-title">
+  <h2 id="coming-soon-title">Coming soon</h2>
 
-<section class="section" id="coming-soon">
-  <h2 class="section-title">Coming soon</h2>
-  <p class="section-subtitle">What we're building next.</p>
-
-  <div class="coming-grid">
-    {items.map((item) => (
-      <div class="coming-card">
-        <span class="coming-badge">Soon</span>
-        <h3>{item.title}</h3>
-        <p>{item.description}</p>
-      </div>
-    ))}
+  <div class="coming-list">
+    <div class="coming-item">
+      <span class="coming-label">Group video</span>
+      <span class="coming-desc">Multi-party video calls with your whole crew.</span>
+    </div>
+    <div class="coming-item">
+      <span class="coming-label">Mobile &amp; desktop</span>
+      <span class="coming-desc">Native apps via Tauri (desktop) and React Native (mobile). Both headed to the app stores.</span>
+    </div>
+    <div class="coming-item">
+      <span class="coming-label">Backgrounds &amp; filters</span>
+      <span class="coming-desc">Blur your background, swap it out, or add filters. All processed locally on your device.</span>
+    </div>
   </div>
 </section>
