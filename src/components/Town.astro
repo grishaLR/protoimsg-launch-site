@@ -1,0 +1,214 @@
+---
+const zones = [
+  {
+    name: 'Home',
+    tier: 'Inner circle',
+    desc: 'Where you spawn. Nobody can see or hear you inside. Soon: friends knock on your door, and letting them in adds them to your inner circle.',
+  },
+  {
+    name: 'Neighborhood',
+    tier: 'Community',
+    desc: 'The fenced streets around your home, for the people in your community. Open to everyone while we build it out.',
+  },
+  {
+    name: 'Public square',
+    tier: 'Everyone',
+    desc: 'Out past the gate. Anyone can see you, and anyone you walk up to can talk with you.',
+  },
+] as const;
+---
+
+<section class="town" id="town" aria-labelledby="town-title">
+  <div class="town-header">
+    <p class="town-badge"><span aria-hidden="true">🚧</span> Beta · under construction</p>
+    <h2 id="town-title">proto town: walk up and talk</h2>
+    <p>
+      A little pixel world where your ATProto identity is your character. Walk up to someone and
+      you're in a conversation. No links to send, no meeting to schedule, no lobby to wait in.
+    </p>
+  </div>
+
+  <figure class="town-shot">
+    <img
+      src="/images/town.webp"
+      width="1725"
+      height="944"
+      loading="lazy"
+      decoding="async"
+      alt="proto town in the proto IM app: a pixel-art character stands inside a stone-walled home labeled “Home · inner circle”, with a door leading out to a grassy town, a mic toggle, and the buddy list alongside."
+    />
+    <figcaption>Your home in proto town, with your buddy list alongside. Step out the door to find people.</figcaption>
+  </figure>
+
+  <ul class="town-points">
+    <li>
+      <strong>Your character is you</strong>: your rpg.actor sprite, your handle, your buddy list.
+      No new account and no avatar to build.
+    </li>
+    <li>
+      <strong>Walk up, start talking</strong>: get close to someone and a purple aura links you. Voice
+      connects on its own, and the closer you stand, the louder they are.
+    </li>
+    <li>
+      <strong>Camera when you want it</strong>: your mic and camera stay off until you turn them on.
+      Other people's video starts hidden until you choose to show it, and your camera switches off
+      the moment someone new walks up.
+    </li>
+    <li>
+      <strong>Blocks follow you</strong>: people you've blocked can't see you, hear you, or end up in
+      a conversation with you, even through someone else.
+    </li>
+  </ul>
+
+  <h3 class="town-zones-title">Where you stand is who sees you</h3>
+  <p class="town-zones-intro">
+    The town is laid out like your buddy list's trust tiers, so privacy is a place you walk to, not
+    a setting you forget to flip.
+  </p>
+  <div class="town-zones">
+    {
+      zones.map((z) => (
+        <div class="town-zone">
+          <span class="town-zone-name">{z.name}</span>
+          <span class="town-zone-tier">{z.tier}</span>
+          <span class="town-zone-desc">{z.desc}</span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .town {
+    padding: var(--space-3xl) 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .town-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .town-header > p:last-child {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .town-badge {
+    display: inline-block;
+    margin-bottom: var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--orange);
+    border: 1px solid var(--orange);
+    border-radius: 4px;
+  }
+
+  .town-shot {
+    margin: var(--space-2xl) 0;
+  }
+
+  .town-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-raised);
+  }
+
+  .town-shot figcaption {
+    margin-top: var(--space-sm);
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+  }
+
+  .town-points {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .town-points li {
+    position: relative;
+    padding-left: var(--space-xl);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  .town-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 8px;
+    height: 1px;
+    background: var(--purple);
+  }
+
+  .town-points li strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .town-zones-title {
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .town-zones-intro {
+    margin-bottom: var(--space-lg);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .town-zones {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .town-zone {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .town-zone-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+
+  .town-zone-tier {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--purple);
+  }
+
+  .town-zone-desc {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 640px) {
+    .town-zones {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
