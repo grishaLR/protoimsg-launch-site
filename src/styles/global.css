@@ -28,8 +28,8 @@
 /* ===== DARK THEME (default) ===== */
 :root,
 [data-theme="dark"] {
-  --bg: oklch(0.16 0.02 280);
-  --bg-raised: oklch(0.20 0.018 280);
+  --bg: oklch(0.22 0.02 280);
+  --bg-raised: oklch(0.26 0.018 280);
   --border: oklch(0.28 0.012 280);
   --text: oklch(0.93 0.005 280);
   --text-secondary: oklch(0.72 0.012 280);
