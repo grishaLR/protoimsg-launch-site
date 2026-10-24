@@ -1,19 +1,25 @@
 ---
-const zones = [
+const scenes = [
   {
     name: 'Home',
     tier: 'Inner circle',
-    desc: 'Where you spawn. Nobody can see or hear you inside. Soon: friends knock on your door, and letting them in adds them to your inner circle.',
+    image: '/images/town-home.webp',
+    alt: 'A lamplit pixel-art room with a bed, a green couch, a bookshelf, a red rug and a moonlit window; a character stands by the door marked “Your neighborhood”.',
+    desc: 'Where you spawn: your own lamplit room. Nobody walks in uninvited. Your inner circle can knock, and you decide who comes in. Your window glows for them while you\'re home.',
   },
   {
     name: 'Neighborhood',
     tier: 'Community',
-    desc: 'The fenced streets around your home, for the people in your community. Open to everyone while we build it out.',
+    image: '/images/town-neighborhood.webp',
+    alt: 'A house with a plum roof and warmly lit windows; two characters stand on the path outside, linked by a soft purple aura.',
+    desc: 'Out your front door, behind your own gate. People in your community can visit. Inside, everyone sees the owner and their mutuals, and nobody else.',
   },
   {
-    name: 'Public square',
+    name: 'Town square',
     tier: 'Everyone',
-    desc: 'Out past the gate. Anyone can see you, and anyone you walk up to can talk with you.',
+    image: '/images/town-square.webp',
+    alt: 'A fence lined with gates labeled with friends’ names and sprites, above a stone plaza; three characters chat on the path, linked by a purple aura.',
+    desc: 'Out past your gate: a plaza with a gate to every friend\'s neighborhood. Anyone can see you and walk up to talk, or switch on friends-of-friends mode to keep it to people two steps away.',
   },
 ] as const;
 ---
@@ -30,20 +36,20 @@ const zones = [
 
   <figure class="town-shot">
     <img
-      src="/images/town.webp"
-      width="1725"
-      height="944"
+      src="/images/town-square.webp"
+      width="2000"
+      height="1150"
       loading="lazy"
       decoding="async"
-      alt="proto town in the proto IM app: a pixel-art character stands inside a stone-walled home labeled “Home · inner circle”, with a door leading out to a grassy town, a mic toggle, and the buddy list alongside."
+      alt="proto town's square: a fence lined with gates labeled with friends’ names and sprites, a path to a stone plaza, and three characters chatting, linked by a purple aura."
     />
-    <figcaption>Your home in proto town, with your buddy list alongside. Step out the door to find people.</figcaption>
+    <figcaption>The town square: a gate for every friend's neighborhood, and a conversation in progress.</figcaption>
   </figure>
 
   <ul class="town-points">
     <li>
       <strong>Your character is you</strong>: your rpg.actor sprite, your handle, your buddy list.
-      No new account and no avatar to build.
+      No new account and no avatar to build. Hold Space to sprint.
     </li>
     <li>
       <strong>Walk up, start talking</strong>: get close to someone and a purple aura links you. Voice
@@ -55,20 +61,39 @@ const zones = [
       the moment someone new walks up.
     </li>
     <li>
-      <strong>Blocks follow you</strong>: people you've blocked can't see you, hear you, or end up in
-      a conversation with you, even through someone else.
+      <strong>Knock, and they decide</strong>: your inner circle can knock on your door, and you
+      choose “let in” or “not now”. Anything but “let in” just looks like no answer, so nobody can
+      tell you said no. Ask a guest to leave any time, or close your door to knocks.
+    </li>
+    <li>
+      <strong>Ask to join</strong>: in someone's neighborhood you only see your mutuals. Next to a
+      conversation with people who aren't, you can ask to join. They all have to agree, and it lasts
+      only while you stay.
+    </li>
+    <li>
+      <strong>Blocks follow you</strong>: people you've blocked can't see you, hear you, end up in a
+      conversation with you, or walk into your neighborhood, even while you're offline.
     </li>
   </ul>
 
   <h3 class="town-zones-title">Where you stand is who sees you</h3>
   <p class="town-zones-intro">
-    The town is laid out like your buddy list's trust tiers, so privacy is a place you walk to, not
-    a setting you forget to flip.
+    Each place is its own space, laid out like your buddy list's trust tiers, so privacy is a place
+    you walk to, not a setting you forget to flip. Your online status follows you too.
   </p>
   <div class="town-zones">
     {
-      zones.map((z) => (
+      scenes.map((z) => (
         <div class="town-zone">
+          <img
+            class="town-zone-img"
+            src={z.image}
+            alt={z.alt}
+            width="1600"
+            height="1000"
+            loading="lazy"
+            decoding="async"
+          />
           <span class="town-zone-name">{z.name}</span>
           <span class="town-zone-tier">{z.tier}</span>
           <span class="town-zone-desc">{z.desc}</span>
@@ -117,6 +142,7 @@ const zones = [
     display: block;
     width: 100%;
     height: auto;
+    image-rendering: pixelated;
     border: 1px solid var(--border);
     border-radius: 8px;
     background: var(--bg-raised);
@@ -187,6 +213,17 @@ const zones = [
     background: var(--bg-raised);
     border: 1px solid var(--border);
     border-radius: 8px;
+  }
+
+  .town-zone-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    image-rendering: pixelated;
+    border-radius: 4px;
+    margin-bottom: var(--space-xs);
   }
 
   .town-zone-name {
